@@ -5,6 +5,7 @@ import chiarafais.enums.EventoType;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -27,16 +28,28 @@ public class Evento {
     @Column(name = "numero_max_partecipanti")
     private int numero_max_partecipanti;
 
+    @OneToOne
+    @JoinColumn(name = "location_id", unique = true, nullable = false)
+    private Location location;
+
+    @OneToMany(mappedBy = "evento")
+    private List<Partecipazioni> partecipazioniList;
+
+
+
+
     public Evento() {
 
     }
 
-    public Evento(String titolo, LocalDate data_evento,String descrizione, EventoType eventoType, int numero_max_partecipanti) {
+    public Evento(String titolo, LocalDate data_evento,String descrizione, EventoType eventoType, int numero_max_partecipanti,Location location,List<Partecipazioni> partecipazioniList ) {
         this.titolo = titolo;
         this.data_evento = data_evento;
         this.descrizione = descrizione;
         this.eventoType = eventoType;
         this.numero_max_partecipanti = numero_max_partecipanti;
+        this.location = location;
+        this.partecipazioniList = partecipazioniList;
     }
 
     public long getId() {

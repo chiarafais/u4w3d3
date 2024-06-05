@@ -4,6 +4,7 @@ import chiarafais.enums.SessoType;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "persona")
@@ -20,19 +21,29 @@ public class Persona {
     private LocalDate data_di_nascita;
     @Enumerated(EnumType.STRING)
     private SessoType sessoType;
+    @ManyToMany(mappedBy = "partecipazioni")
+    private  List<Partecipazioni> partecipazioniList;
 
 
     public Persona() {
 
     }
 
-    public Persona(String nome, String cognome, String email, LocalDate data_di_nascita, SessoType sessoType) {
+    public Persona(String nome, String cognome, String email, LocalDate data_di_nascita, SessoType sessoType, List<Partecipazioni> partecipazioniList) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
         this.data_di_nascita = data_di_nascita;
         this.sessoType = sessoType;
+        this.partecipazioniList = partecipazioniList;
+    }
 
+    public List<Partecipazioni> getPartecipazioniList() {
+        return partecipazioniList;
+    }
+
+    public void setPartecipazioniList(List<Partecipazioni> partecipazioniList) {
+        this.partecipazioniList = partecipazioniList;
     }
 
     public long getId() {

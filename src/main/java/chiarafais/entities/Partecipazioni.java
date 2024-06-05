@@ -3,6 +3,8 @@ package chiarafais.entities;
 import chiarafais.enums.StatoType;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "partecipazioni")
 
@@ -11,8 +13,13 @@ public class Partecipazioni {
     @GeneratedValue
     private long id;
 
-    private String persona;
-    private String evento;
+    @ManyToMany
+    @JoinTable(name = "persona_partecipazioni", joinColumns = @JoinColumn(name = "partecipazioni_id"), inverseJoinColumns = @JoinColumn(name = "persona_id"))
+    private List<Persona> partecipazioni;
+
+    @ManyToOne
+    @JoinColumn(name = "evento_id")
+    private Evento evento;
     @Enumerated(EnumType.STRING)
     private StatoType statoType;
 
@@ -21,8 +28,8 @@ public class Partecipazioni {
 
     }
 
-    public Partecipazioni(String persona, String evento, StatoType statoType) {
-        this.persona = persona;
+    public Partecipazioni( List<Persona> partecipazioni, Evento evento, StatoType statoType) {
+        this.partecipazioni = partecipazioni;
         this.evento = evento;
         this.statoType = statoType;
     }
@@ -31,19 +38,19 @@ public class Partecipazioni {
         return id;
     }
 
-    public String getPersona() {
-        return persona;
+    public List<Persona> getPartecipazioni() {
+        return partecipazioni;
     }
 
-    public void setPersona(String persona) {
-        this.persona = persona;
+    public void setPartecipazioni(List<Persona> partecipazioni) {
+        this.partecipazioni = partecipazioni;
     }
 
-    public String getEvento() {
+    public Evento getEvento() {
         return evento;
     }
 
-    public void setEvento(String evento) {
+    public void setEvento(Evento evento) {
         this.evento = evento;
     }
 
@@ -59,8 +66,7 @@ public class Partecipazioni {
     public String toString() {
         return "Partecipazioni{" +
                 "id=" + id +
-                ", persona='" + persona + '\'' +
-                ", evento='" + evento + '\'' +
+                ", evento=" + evento +
                 ", statoType=" + statoType +
                 '}';
     }
