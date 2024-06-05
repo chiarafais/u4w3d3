@@ -28,13 +28,12 @@ public class Evento {
     @Column(name = "numero_max_partecipanti")
     private int numero_max_partecipanti;
 
-    @OneToOne
-    @JoinColumn(name = "location_id", unique = true, nullable = false)
-    private Location location;
-
     @OneToMany(mappedBy = "evento")
     private List<Partecipazioni> partecipazioniList;
 
+    @ManyToOne
+    @JoinColumn(name = "location_id", unique = true)
+    private Location location;
 
 
 
