@@ -1,10 +1,10 @@
 package chiarafais.entities;
 
 
+import chiarafais.enums.EventoType;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 
 @Entity

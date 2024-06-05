@@ -2,7 +2,7 @@ package chiarafais;
 
 import chiarafais.dao.EventoDAO;
 import chiarafais.entities.Evento;
-import chiarafais.entities.EventoType;
+import chiarafais.enums.EventoType;
 import chiarafais.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -14,7 +14,6 @@ public class Application {
 
     private static final EntityManagerFactory emf= Persistence.createEntityManagerFactory("u4w3d2");
 
-    //prova
     public static void main(String[] args) {
 
         EntityManager em = emf.createEntityManager();
@@ -29,8 +28,9 @@ public class Application {
         Evento cresima = new Evento("cresima",LocalDate.of(2010, 7, 9),"questa è una descrizione", EventoType.PRIVATO, 200);
         Evento laurea = new Evento("laurea",LocalDate.of(2019, 3, 11),"questa è una descrizione", EventoType.PUBBLICO, 1500);
 
+
         //vorrei evitare che si creino ogni volta li stessi eventi ma vorrei comunque tenere il codice! (quindi commento tutti i sd.save())
-//        sd.save(matrimonio);
+  //  sd.save(matrimonio);
 //        sd.save(convention);
 //        sd.save(battesimo);
 //        sd.save(anniversario);
