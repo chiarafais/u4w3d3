@@ -13,9 +13,9 @@ public class Partecipazioni {
     @GeneratedValue
     private long id;
 
-    @ManyToMany
-    @JoinTable(name = "persona_partecipazioni", joinColumns = @JoinColumn(name = "partecipazioni_id"), inverseJoinColumns = @JoinColumn(name = "persona_id"))
-    private List<Persona> partecipazioni;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Persona partecipazioni;
 
     @ManyToOne
     @JoinColumn(name = "evento_id")
@@ -28,8 +28,8 @@ public class Partecipazioni {
 
     }
 
-    public Partecipazioni( List<Persona> partecipazioni, Evento evento, StatoType statoType) {
-        this.partecipazioni = partecipazioni;
+    public Partecipazioni( Persona persona, Evento evento, StatoType statoType) {
+        this.partecipazioni = persona;
         this.evento = evento;
         this.statoType = statoType;
     }
@@ -38,11 +38,18 @@ public class Partecipazioni {
         return id;
     }
 
-    public List<Persona> getPartecipazioni() {
+    public Persona getPersonaList() {
+        return partecipazioni;
+    }
+    public void setPersonaList(Persona persona) {
+        this.partecipazioni = persona;
+    }
+
+    public Persona getPartecipazioni() {
         return partecipazioni;
     }
 
-    public void setPartecipazioni(List<Persona> partecipazioni) {
+    public void setPartecipazioni(Persona partecipazioni) {
         this.partecipazioni = partecipazioni;
     }
 

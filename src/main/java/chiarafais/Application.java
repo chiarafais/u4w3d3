@@ -2,9 +2,15 @@ package chiarafais;
 
 import chiarafais.dao.EventoDAO;
 import chiarafais.dao.LocationDAO;
+import chiarafais.dao.PartecipazioniDAO;
+import chiarafais.dao.PersonaDAO;
 import chiarafais.entities.Evento;
 import chiarafais.entities.Location;
+import chiarafais.entities.Partecipazioni;
+import chiarafais.entities.Persona;
 import chiarafais.enums.EventoType;
+import chiarafais.enums.SessoType;
+import chiarafais.enums.StatoType;
 import chiarafais.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -64,9 +70,24 @@ public class Application {
 
         Location location = new Location("Provaaa", "latina");
         LocationDAO locationdb = new LocationDAO(em);
-        locationdb.save(location);
+//      locationdb.save(location);
+        Location locationfound = locationdb.findById(1);
 
+        Persona persona1 = new Persona("Aldo", "Baglio", "aldobaglio@gmail.com", LocalDate.of(1982, 9, 15), SessoType.MASCHIO);
+        PersonaDAO personaDao1 = new PersonaDAO(em);
+//        personaDao1.save(persona1);
 
+        Evento evento = new Evento("L'isola che non c'è", LocalDate.of(2024, 07, 05), "evento per bambini", EventoType.PUBBLICO, 50, locationfound);
+        EventoDAO evento1 = new EventoDAO(em);
+//         evento1.save(evento);
+
+      Evento eventofound = evento1.findById(1);
+      Persona personafound = personaDao1.findById(1);
+
+       Partecipazioni partecipazione = new Partecipazioni(personafound, eventofound, StatoType.DA_CONFERMARE);
+       PartecipazioniDAO partecipazione1 = new PartecipazioniDAO(em);
+        partecipazione1.save(partecipazione);
+       partecipazione1.findAndRemovedById(1);
 
         em.close();
         emf.close();

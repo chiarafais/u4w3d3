@@ -12,6 +12,7 @@ public class EventoDAO {
     public EventoDAO(EntityManager em) {
         this.em = em;
     }
+
     //esercizio 1: cercare di salvare nel db i dati di un evento
     public void save(Evento evento){
         EntityTransaction transaction = em.getTransaction();
